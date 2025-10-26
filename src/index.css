@@ -1,0 +1,160 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+  /* Core backgrounds */
+  --color-light-background: hsl(0, 0%, 100%);          /* white */
+  --color-foreground-light: hsl(0, 0%, 10%);          /* near‑black */
+
+  --color-dark-background: hsl(0, 0%, 12%);           /* dark gray */
+  --color-foreground-dark: hsl(0, 0%, 100%);          /* white */
+
+  /* Semantic background / foreground (auto‑switch via media) */
+  --color-background: var(--color-light-background);
+  --color-foreground: var(--color-foreground-light);
+
+  /* Primary – Trustworthy Blue */
+  --color-primary: hsl(215, 80%, 45%);
+  --color-primary-light: hsl(215, 80%, 95%);
+  --color-primary-dark: hsl(215, 80%, 10%);
+  --color-primary-hover: hsl(215, 80%, 50%);   /* +5 % L */
+  --color-primary-active: hsl(215, 80%, 40%);  /* –5 % L */
+  --color-foreground-primary: hsl(0, 0%, 100%); /* white */
+
+  /* Secondary – Calming Teal */
+  --color-secondary: hsl(175, 70%, 50%);
+  --color-secondary-light: hsl(175, 70%, 95%);
+  --color-secondary-dark: hsl(175, 70%, 10%);
+  --color-secondary-hover: hsl(175, 70%, 55%);   /* +5 % L */
+  --color-secondary-active: hsl(175, 70%, 45%);  /* –5 % L */
+  --color-foreground-secondary: hsl(0, 0%, 100%); /* white */
+
+  /* Accent – Warm Amber (CTA) */
+  --color-accent: hsl(40, 95%, 50%);
+  --color-accent-light: hsl(40, 95%, 95%);
+  --color-accent-dark: hsl(40, 95%, 10%);
+  --color-accent-hover: hsl(40, 95%, 55%);   /* +5 % L */
+  --color-accent-active: hsl(40, 95%, 45%);  /* –5 % L */
+  --color-foreground-accent: hsl(0, 0%, 100%); /* white */
+
+  /* Muted grayscale */
+  --color-gray-100: hsl(0, 0%, 95%);
+  --color-gray-900: hsl(0, 0%, 15%);
+
+  --color-muted-light-background: var(--color-gray-100);
+  --color-foreground-muted-light: var(--color-gray-900);
+  --color-muted-dark-background: var(--color-gray-900);
+  --color-foreground-muted-dark: var(--color-gray-100);
+
+  /* Borders & rings */
+  --color-border: hsl(0, 0%, 80%);
+  --color-border-strong: hsl(0, 0%, 60%);
+  --color-ring: var(--color-primary);
+
+  /* Font families */
+  --font-sans: "Roboto", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-display: "Roboto Slab", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  /* Shadows – multi‑layer */
+  --shadow-soft: 0 2px 8px rgb(0 0 0 / 0.04), 0 1px 3px rgb(0 0 0 / 0.08);
+  --shadow-medium: 0 4px 16px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.08);
+  --shadow-strong: 0 8px 32px rgb(0 0 0 / 0.16), 0 4px 12px rgb(0 0 0 / 0.08);
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-medium: 250ms;
+  --duration-slow: 350ms;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-back: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Radii */
+  --radius-sm: 0.25rem;   /* 4 px */
+  --radius-md: 0.5rem;    /* 8 px */
+  --radius-lg: 0.75rem;   /* 12 px */
+
+  /* Border widths */
+  --border-thin: 1px;
+  --border-md: 2px;
+  --border-thick: 4px;
+
+  /* Spacing (4 px base) */
+  --space-xs: 0.25rem;   /* 4 px */
+  --space-sm: 0.5rem;    /* 8 px */
+  --space-md: 0.75rem;   /* 12 px */
+  --space-lg: 1rem;      /* 16 px */
+  --space-xl: 1.5rem;    /* 24 px */
+}
+
+/* Base layer */
+@layer base {
+  html { color-scheme: light; }
+  body {
+    @apply bg-background text-foreground antialiased font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+/* Utility helpers – exactly six */
+@layer utilities {
+  .card {
+    @apply rounded-lg shadow-soft bg-light-background
+           hover:-translate-y-0.5 hover:shadow-medium
+           transition-all duration-[var(--duration-medium)] ease-[var(--ease-out-back)];
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md
+           bg-accent text-foreground-accent px-6 py-3 font-semibold
+           hover:bg-accent-hover hover:shadow-medium hover:-translate-y-0.5
+           active:bg-accent-active active:translate-y-0
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+           transition-all duration-[var(--duration-fast)] ease-[var(--ease-spring)];
+  }
+
+  .surface-overlay {
+    @apply bg-primary/60 backdrop-blur-sm;
+  }
+
+  .hover-lift {
+    @apply hover:-translate-y-1 hover:shadow-medium
+           transition-all duration-[var(--duration-medium)] ease-[var(--ease-out-back)];
+  }
+
+  .glass-effect {
+    @apply bg-background/80 backdrop-blur-md border border-border
+           rounded-lg shadow-soft;
+  }
+
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+  }
+
+  /* Fade‑in‑up animation */
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up var(--duration-medium) var(--ease-smooth) both;
+  }
+
+  .animate-fade-in-up-delay-100 {
+    animation: fade-in-up var(--duration-medium) var(--ease-smooth) both;
+    animation-delay: 100ms;
+  }
+
+  .animate-fade-in-up-delay-200 {
+    animation: fade-in-up var(--duration-medium) var(--ease-smooth) both;
+    animation-delay: 200ms;
+  }
+}
